@@ -114,7 +114,7 @@ body {
 
 
 
-/* Total Hadir */
+/* Total Pegawai */
 /* styles.css */
 body {
     font-family: Arial, sans-serif;
@@ -150,8 +150,9 @@ body {
 }
 
 .logo-img {
-    width: 75px;
-    margin-right: 10px;
+    width: 80px;
+    margin-top: 25px;
+    margin-right: -10px;
 }
 
 .logo-dashboard h1 {
@@ -255,3 +256,105 @@ th {
     font-size: 12px;
     margin: 0;
 }
+
+/* Atur posisi header kartu */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Dropdown Filter */
+.dropdown select {
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+}
+
+/* Style untuk action buttons */
+.action-buttons {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+}
+
+/* Style untuk tombol edit & delete */
+.action-buttons button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+/* Style untuk icon */
+.action-buttons img {
+    width: 24px; /* Ukuran icon */
+    height: 24px;
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Efek hover */
+.action-buttons button:hover img {
+    transform: scale(1.1);
+}
+
+
+
+.card h2 {
+    margin-bottom: 50px; /* Mengurangi jarak bawah agar lebih dekat ke input tanggal */
+  }
+  .date-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+select, input[type="date"] {
+    width: 200px; /* Pastikan ukurannya sama */
+    height: 40px; /* Sesuaikan tinggi agar seragam */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.add-button {
+    height: 40px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.add-button:hover {
+    background-color: #0056b3;
+}
+
+  /* Styling tabel tetap seperti semula */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; /* Jarak agar tabel tetap di bawah */
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f4f4f4;
+  }
+
