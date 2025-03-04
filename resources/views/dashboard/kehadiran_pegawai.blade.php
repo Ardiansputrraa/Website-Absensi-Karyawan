@@ -3,11 +3,23 @@
     <div class="container">
         <!-- Sidebar -->
         <x-sidebar></x-sidebar>
+
+         <!-- Profile -->
+        <x-profile></x-profile>
         
         <!-- Main Content -->
         <main class="main-content">
             <div class="card">
-                <h2>Total Pegawai</h2>
+                <div class="card-header">
+                    <h2>Total Pegawai</h2>
+                    <div class="dropdown">
+                        <select>
+                            <option>Total Hadir</option>
+                            <option>Total Tidak Hadir</option>
+                            <option>Total Izin/Sakit/Cuti</option>
+                        </select>
+                    </div>
+                </div>
                 <p>3 Orang</p>
                 
                 <table>
@@ -46,15 +58,6 @@
                 </table>
             </div>
         </main>
-        
-        <!-- User Profile -->
-        <div class="user-profile">
-            <img src="{{ asset('image/Profil-User.png') }}" alt="User" class="profile-img">
-            <div>
-                <p class="name">Dikco Agung</p>
-                <p class="role">HRD</p>
-            </div>
-        </div>
     </div>
 </body>
 </html>
