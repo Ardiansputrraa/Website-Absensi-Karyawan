@@ -337,6 +337,17 @@ select, input[type="date"] {
     font-size: 16px;
 }
 
+.cancel-button {
+    height: 40px;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
 .add-button:hover {
     background-color: #0056b3;
 }
