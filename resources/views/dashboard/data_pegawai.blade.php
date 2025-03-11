@@ -1,9 +1,4 @@
 <x-header></x-header>
-<script>
-    function addPegawaiModal() {
-        $('#tambahPegawaiModal').modal('show');
-    }
-</script>
 <body>
     <div class="container">
         <!-- Sidebar -->
@@ -16,7 +11,9 @@
         <main class="main-content">
             <div class="card">
                 <h2>Data Pegawai</h2>
-                    <button class="add-button" type="button" onclick="addPegawaiModal()">Tambah Data</button>
+                <!-- Tombol Tambah Data -->
+                <div class="button-container">
+                    <button class="add-button">Tambah Data</button>
                 </div>
                 <table>
                     <thead>
@@ -96,6 +93,7 @@
                 </table>
             </div>
         </main>
+        
 
     </div>
 </body>
