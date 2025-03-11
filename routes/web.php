@@ -2,10 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/login', function () {
     return view('auth.login');
 });
@@ -40,4 +36,24 @@ Route::get('/ketidakhadiran', function () {
 
 Route::get('/laporan-harian', function () {
     return view('dashboard.laporan_harian');
+});
+
+Route::get('/user-home', function () {
+    return view('user.user_home');
+});
+
+Route::get('/user-rekap-presensi-harian', function () {
+    return view('user.user_rekap_presensi_harian');
+});
+
+Route::get('/user-rekap-presensi-bulanan', function () {
+    return view('user.user_rekap_presensi_bulanan');
+});
+
+Route::get('/user-ketidakhadiran', function () {
+    return view('user.user_ketidakhadiran');
+});
+
+Route::get('/user-laporan-harian', function () {
+    return view('user.user_laporan_harian');
 });

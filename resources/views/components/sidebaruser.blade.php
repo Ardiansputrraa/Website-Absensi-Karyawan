@@ -5,24 +5,16 @@
     </div>
     <nav>
         <ul>
-            <li><a href="/kehadiran-pegawai">Total Pegawai</a></li>
-            <li><a href="/data-pegawai">Pegawai</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle">Masterdata <span class="arrow"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="/data-jabatan">Data Jabatan</a></li>
-                    <li><a href="/data-role">Data Role</a></li>
-                </ul>
-            </li>
+            <li><a href="/user-home">Home</a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle">Rekap Presensi <span class="arrow"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/rekap-presensi-harian">Rekap Presensi Harian</a></li>
-                    <li><a href="/rekap-presensi-bulanan">Rekap Presensi Bulanan</a></li>
+                    <li><a href="/user-rekap-presensi-harian">Rekap Presensi Harian</a></li>
+                    <li><a href="/user-rekap-presensi-bulanan">Rekap Presensi Bulanan</a></li>
                 </ul>
             </li>
-            <li><a href="/ketidakhadiran">Ketidakhadiran</a></li>
-            <li><a href="/laporan-harian">Laporan Harian</a></li>
+            <li><a href="/user-ketidakhadiran">Ketidakhadiran</a></li>
+            <li><a href="/user-laporan-harian">Laporan Harian</a></li>
         </ul>
     </nav>
 </aside>

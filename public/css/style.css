@@ -189,7 +189,6 @@ nav ul li .active {
 /* Main Content */
 .main-content {
     flex-grow: 1;
-    padding: 40px;
     margin-left: 250px;
     width: calc(100% - 250px);
 }
@@ -278,7 +277,7 @@ th {
 .action-buttons {
     display: flex;
     gap: 5px;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 /* Style untuk tombol edit & delete */
