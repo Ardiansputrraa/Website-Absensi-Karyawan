@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DataJabatanController;
+use App\Http\Controllers\DataRoleController;
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -14,12 +16,20 @@ Route::get('/data-pegawai', function () {
     return view('dashboard.data_pegawai');
 });
 
-Route::get('/data-jabatan', function () {
-    return view('dashboard.data_jabatan');
+Route::controller(DataJabatanController::class)->group(function () {
+    Route::get('data-jabatan', 'viewDataJabatan')->name('data.jabatan');
+    Route::post('tambah-jabatan', 'tambahJabatan')->name('tambah.jabatan');
+    Route::get('detail-jabatan/{jabatan_id}', 'detailJabatan')->name('detail.jabatan');
+    Route::post('edit-jabatan', 'editJabatan')->name('edit.jabatan');
+    Route::get('delete-jabatan/{jabatan_id}', 'deleteJabatan')->name('delete.jabatan');
 });
 
-Route::get('/data-role', function () {
-    return view('dashboard.data_role');
+Route::controller(DataRoleController::class)->group(function () {
+    Route::get('data-role', 'viewDataRole')->name('data.role');
+    Route::post('tambah-role', 'tambahRole')->name('tambah.role');
+    Route::get('detail-role/{role_id}', 'detailRole')->name('detail.role');
+    Route::post('edit-role', 'editRole')->name('edit.role');
+    Route::get('delete-role/{role_id}', 'deleteRole')->name('delete.role');
 });
 
 Route::get('/rekap-presensi-harian', function () {

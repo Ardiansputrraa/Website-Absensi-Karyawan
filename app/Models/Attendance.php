@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Attendance extends Model
 {
     use HasFactory;
-
+    protected $table = 'attendance';
     protected $fillable = ['pegawai_id', 'date', 'check_in', 'check_out', 'status'];
 
     public function pegawai()
