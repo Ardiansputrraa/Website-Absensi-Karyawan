@@ -8,6 +8,8 @@
     font-family: 'Poppins', sans-serif;
 }
 
+#map { height: 400px; width: 100%; margin-bottom: 10px; }
+
 body {
     display: flex;
     justify-content: center;
