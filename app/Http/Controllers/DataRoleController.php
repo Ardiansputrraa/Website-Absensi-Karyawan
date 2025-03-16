@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Roles;
+use App\Models\Role;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
 
@@ -11,7 +11,7 @@ class DataRoleController extends Controller
 {
     public function viewDataRole()
     {
-        $roles = Roles::all();
+        $roles = Role::all();
         return view('dashboard.data_role', compact('roles'));
     }
 
@@ -26,7 +26,7 @@ class DataRoleController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $role = Roles::create([
+        $role = Role::create([
             'role' => $request->role,
         ]);
 
@@ -37,7 +37,7 @@ class DataRoleController extends Controller
     public function detailRole($id)
     {
         try {
-            $role = Roles::findOrFail($id);
+            $role = Role::findOrFail($id);
             return response()->json(['data' => $role], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Data tidak ditemukan.'], 404);
@@ -57,7 +57,7 @@ class DataRoleController extends Controller
     $id = $request->id;
 
     // Mencari Role berdasarkan ID
-    $role = Roles::find($id);
+    $role = Role::find($id);
 
     if (!$role) {
         return response()->json(['error' => 'Data tidak ditemukan'], 404);
@@ -72,7 +72,7 @@ class DataRoleController extends Controller
 
 function deleteRole($id)
     {
-        $role = Roles::find($id);
+        $role = Role::find($id);
         if ($role) {
             $role->delete();
         }

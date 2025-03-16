@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataJabatanController;
 use App\Http\Controllers\DataRoleController;
+use App\Http\Controllers\LokasiKantorController;
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -30,6 +31,14 @@ Route::controller(DataRoleController::class)->group(function () {
     Route::get('detail-role/{role_id}', 'detailRole')->name('detail.role');
     Route::post('edit-role', 'editRole')->name('edit.role');
     Route::get('delete-role/{role_id}', 'deleteRole')->name('delete.role');
+});
+
+Route::controller(LokasiKantorController::class)->group(function () {
+    Route::get('lokasi-kantor', 'viewLokasiKantor')->name('lokasi.kantor');
+    Route::post('create-lokasi-kantor', 'createLokasiKantor')->name('create.lokasi.kantor');
+    Route::get('detail-lokasi-kantor/{lokasi_id}', 'detailLokasiKantor')->name('detail.lokasi.kantor');
+    Route::post('edit-lokasi-kantor', 'editLokasiKantor')->name('edit.lokasi.kantor');
+    Route::get('delete-lokasi-kantor/{lokasi_id}', 'deleteLokasiKantor')->name('delete.lokasi.kantor');
 });
 
 Route::get('/rekap-presensi-harian', function () {

@@ -12,6 +12,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="/data-jabatan">Data Jabatan</a></li>
                     <li><a href="/data-role">Data Role</a></li>
+                    <li><a href="/lokasi-kantor">Data Lokasi Kantor</a></li>
                 </ul>
             </li>
             <li class="dropdown">

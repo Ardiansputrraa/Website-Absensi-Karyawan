@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Jabatans;
+use App\Models\Jabatan;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
 
@@ -11,7 +11,7 @@ class DataJabatanController extends Controller
 {
     public function viewDataJabatan()
     {
-        $jabatans = Jabatans::all();
+        $jabatans = Jabatan::all();
         return view('dashboard.data_jabatan', compact('jabatans'));
     }
 
@@ -26,7 +26,7 @@ class DataJabatanController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $jabatan = Jabatans::create([
+        $jabatan = Jabatan::create([
             'jabatan' => $request->jabatan,
         ]);
 
@@ -37,7 +37,7 @@ class DataJabatanController extends Controller
     public function detailJabatan($id)
     {
         try {
-            $jabatan = Jabatans::findOrFail($id);
+            $jabatan = Jabatan::findOrFail($id);
             return response()->json(['data' => $jabatan], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Data tidak ditemukan.'], 404);
@@ -57,7 +57,7 @@ class DataJabatanController extends Controller
     $id = $request->id;
 
     // Mencari jabatan berdasarkan ID
-    $jabatan = Jabatans::find($id);
+    $jabatan = Jabatan::find($id);
 
     if (!$jabatan) {
         return response()->json(['error' => 'Data tidak ditemukan'], 404);
@@ -72,7 +72,7 @@ class DataJabatanController extends Controller
 
 function deleteJabatan($id)
     {
-        $jabatan = Jabatans::find($id);
+        $jabatan = Jabatan::find($id);
         if ($jabatan) {
             $jabatan->delete();
         }

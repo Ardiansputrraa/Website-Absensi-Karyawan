@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class LeaveRequest extends Model
-{
+class LeaveRequest extends Model {
     use HasFactory;
+
     protected $table = 'leave_requests';
     protected $fillable = ['pegawai_id', 'leave_type', 'start_date', 'end_date', 'reason', 'status'];
 
-    public function pegawai()
-    {
+    public function pegawai(): BelongsTo {
         return $this->belongsTo(Pegawai::class);
     }
 }
