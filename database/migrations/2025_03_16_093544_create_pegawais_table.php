@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->string('email', 100)->unique();
             $table->string('phone_number', 100)->nullable();
             $table->string('position', 100);
-            $table->enum('role', ['pegawai', 'magang']);
+            $table->string('role', 100);
             $table->timestamps();
         });
     }
