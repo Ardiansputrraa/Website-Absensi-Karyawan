@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Pegawai;
-use App\Models\Admin;
 use App\Models\Role;
+use App\Models\User;
+use App\Models\Admin;
 use App\Models\Jabatan;
-use Illuminate\Support\Facades\Validator;
+use App\Models\Pegawai;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class DataPegawaiController extends Controller
 {
@@ -38,14 +39,16 @@ class DataPegawaiController extends Controller
         $user = User::create([
             'username' => $request->username,
             'password' => Hash::make($request->password),
-            'role' => "admin",
+            'role' => "user",
         ]);
-        Admin::create([
+        Pegawai::create([
             'user_id' => $user->id,
-            'name' => "Super Admin",
+            'name' => $request->name,
             'image' => 'storage/images/profiles/profile.jpeg',
-            'email' => 'anugrahlanpambudi27@gmail.com',
-            'phone_number' => '081298248462',
+            'email' => $request->email,
+            'phone_number' => $request->phoneNumber,
+            'position' => $request->position,
+            'role' => $request->role,
         ]);
         return response()->json(['success' => 'Data pegawai berhasil ditambahkan.'], 200);
     }
@@ -64,7 +67,7 @@ class DataPegawaiController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'email|unique:pegawai,email,',
+            'email' => 'required',
             'phone_number' => 'required',
             'position' => 'required',
             'role' => 'required',
@@ -84,7 +87,7 @@ class DataPegawaiController extends Controller
         }
 
         // Update jabatan
-        $pegawai->pegawai = $request->pegawai;
+        $pegawai->name = $request->name;
         $pegawai->email = $request->email;
         $pegawai->phone_number = $request->phone_number;
         $pegawai->position = $request->position;
@@ -97,10 +100,18 @@ class DataPegawaiController extends Controller
 
     function deletePegawai($id)
     {
-        $pegawai = Pegawai::find($id);
-        if ($pegawai) {
-            $pegawai->delete();
+        
+        DB::beginTransaction();
+        try {
+            Pegawai::where('user_id', $id)->delete();
+
+            User::where('id', $id)->delete();
+
+            DB::commit();
+            return response()->json(['message' => 'Pegawai berhasil dihapus.'], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => $e->getMessage()], 500);
         }
-        return response()->json(['success' => 'Pegawai berhasil dihapus.'], 200);
     }
 }

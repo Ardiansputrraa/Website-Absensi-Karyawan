@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DataJabatanController;
-use App\Http\Controllers\DataRoleController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\LokasiKantorController;
+use App\Http\Controllers\DataRoleController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\DataJabatanController;
 use App\Http\Controllers\DataPegawaiController;
-use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\LokasiKantorController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -21,8 +21,8 @@ Route::get('/data-pegawai', function () {
 });
 
 Route::controller(AuthController::class)->group(function () {
-    Route::get('login', 'viewLogin')->name('data.jabatan');
-    Route::post('tambah-jabatan', 'tambahJabatan')->name('tambah.jabatan');
+    Route::get('login', 'viewLogin')->name('login');
+    Route::post('login-check', 'loginCheck')->name('login.check');
 });
 
 Route::controller(DataJabatanController::class)->group(function () {
@@ -58,8 +58,9 @@ Route::controller(LokasiKantorController::class)->group(function () {
     Route::get('delete-lokasi-kantor/{lokasi_id}', 'deleteLokasiKantor')->name('delete.lokasi.kantor');
 });
 
-Route::controller(AbsensiController::class)->group(function () {
-    Route::get('user-home', 'viewPresensi')->name('user.home');
+Route::controller(AttendanceController::class)->group(function () {
+    Route::get('user-home', 'viewAttendance')->name('user.home');
+    Route::post('absen-masuk', 'checkIn')->name('absen.masuk');
 });
 
 Route::get('/rekap-presensi-harian', function () {
