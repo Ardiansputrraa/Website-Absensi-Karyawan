@@ -7,6 +7,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DataJabatanController;
 use App\Http\Controllers\DataPegawaiController;
 use App\Http\Controllers\LokasiKantorController;
+use App\Http\Controllers\KetidakhadiranController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -61,6 +62,16 @@ Route::controller(LokasiKantorController::class)->group(function () {
 Route::controller(AttendanceController::class)->group(function () {
     Route::get('user-home', 'viewAttendance')->name('user.home');
     Route::post('absen-masuk', 'checkIn')->name('absen.masuk');
+    Route::post('absen-keluar', 'checkOut')->name('absen.keluar');
+});
+
+Route::controller(KetidakhadiranController::class)->group(function () {
+    Route::get('user-ketidakhadiran', 'viewKetidakHadiran')->name('user-ketidakhadiran');
+    Route::post('tambah-ketidakhadiran', 'tambahKetidakHadiran')->name('tambah.ketidakhadiran');
+    Route::get('detail-ketidakhadiran/{ketidakhadiran_id}', 'detailKetidakHadiran')->name('detail.ketidakhadiran');
+    Route::post('edit-ketidakhadiran', 'editKetidakHadiran')->name('edit.ketidakhadiran');
+    Route::get('delete-ketidakhadiran/{ketidakhadiran_id}', 'deleteKetidakHadiran')->name('delete.ketidakhadiran');
+    Route::get('download-ketidakhadiran/{ketidakhadiran_id}', 'downloadKetidakHadiran')->name('download.ketidakhadiran');
 });
 
 Route::get('/rekap-presensi-harian', function () {
@@ -71,9 +82,6 @@ Route::get('/rekap-presensi-bulanan', function () {
     return view('dashboard.rekap_presensi_bulanan');
 });
 
-Route::get('/ketidakhadiran', function () {
-    return view('dashboard.ketidakhadiran');
-});
 
 Route::get('/laporan-harian', function () {
     return view('dashboard.laporan_harian');
@@ -86,10 +94,6 @@ Route::get('/user-rekap-presensi-harian', function () {
 
 Route::get('/user-rekap-presensi-bulanan', function () {
     return view('user.user_rekap_presensi_bulanan');
-});
-
-Route::get('/user-ketidakhadiran', function () {
-    return view('user.user_ketidakhadiran');
 });
 
 Route::get('/user-laporan-harian', function () {

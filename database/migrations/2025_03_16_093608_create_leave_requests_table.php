@@ -9,11 +9,13 @@ return new class extends Migration {
         Schema::create('leave_requests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pegawai_id')->constrained('pegawais')->onDelete('cascade');
+            $table->string('name');
             $table->enum('leave_type', ['cuti', 'izin', 'sakit']);
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->string('start_date');
+            $table->string('end_date');
+            $table->string('file');
             $table->text('reason');
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->enum('status', ['diproses', 'diterima', 'ditolak'])->default('diproses');
             $table->timestamps();
         });
     }

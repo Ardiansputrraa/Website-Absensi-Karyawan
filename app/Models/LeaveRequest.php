@@ -10,7 +10,7 @@ class LeaveRequest extends Model {
     use HasFactory;
 
     protected $table = 'leave_requests';
-    protected $fillable = ['pegawai_id', 'leave_type', 'start_date', 'end_date', 'reason', 'status'];
+    protected $fillable = ['pegawai_id', 'name', 'leave_type', 'start_date', 'end_date', 'file', 'reason', 'status'];
 
     public function pegawai(): BelongsTo {
         return $this->belongsTo(Pegawai::class);

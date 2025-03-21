@@ -353,7 +353,6 @@
                         <tr>
                             <th>No</th>
                             <th>Nama</th>
-                            <th>Username</th>
                             <th>Jabatan</th>
                             <th>Role</th>
                             <th>Email</th>
@@ -365,7 +364,6 @@
                         @foreach ($pegawais as $pegawai)
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $pegawai->name }}</td>
-                            <td>{{ $pegawai->username }}</td>
                             <td>{{ $pegawai->position }}</td>
                             <td>{{ $pegawai->role }}</td>
                             <td>{{ $pegawai->email }}</td>

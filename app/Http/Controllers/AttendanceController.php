@@ -20,62 +20,80 @@ class AttendanceController extends Controller
     
     public function checkIn(Request $request)
     {
-        $user = Auth::user();
-        $pegawai = $user->pegawai;
-
-        if (!$pegawai) {
-            return back()->with('error', 'Pegawai tidak ditemukan.');
-        }
-
-        // Ambil lokasi kantor
-        $kantor = LokasiKantor::first();
-
-        if (!$kantor) {
-            return back()->with('error', 'Lokasi kantor tidak ditemukan.');
-        }
-
-        $userLatitude = $request->latitude;
-        $userLongitude = $request->longitude;
-
-        // Hitung jarak user dengan kantor
-        $distance = $this->haversineGreatCircleDistance(
-            $kantor->latitude, $kantor->longitude,
-            $userLatitude, $userLongitude
-        );
-
-        // Cek apakah user berada dalam radius kantor
-        if ($distance > $kantor->radius) {
-            return back()->with('error', 'Anda berada di luar jangkauan kantor.');
-        }
-
-        // Simpan ke database
-        Attendance::create([
-            'pegawai_id' => $pegawai->id,
-            'date' => Carbon::now()->toDateString(),
-            'check_in' => Carbon::now()->toTimeString(),
-            'status' => 'hadir',
-            'kantor_id' => $kantor->id,
-            'latitude' => $userLatitude,
-            'longitude' => $userLongitude,
+        $request->validate([
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
         ]);
 
-        return back()->with('success', 'Absensi berhasil dilakukan.');
+        $user = Auth::user();
+        $pegawai = $user->pegawai;
+        if (!$pegawai) {
+            return response()->json(['message' => 'User tidak memiliki data pegawai'], 403);
+        }
+
+        $kantor = LokasiKantor::first(); // Ambil lokasi kantor (bisa disesuaikan jika ada lebih dari satu kantor)
+        if (!$kantor) {
+            return response()->json(['message' => 'Lokasi kantor tidak ditemukan'], 404);
+        }
+
+        $distance = $this->haversineDistance($kantor->latitude, $kantor->longitude, $request->latitude, $request->longitude);
+        if ($distance > $kantor->radius) {
+            return response()->json(['message' => 'Anda berada di luar area kantor'], 403);
+        }
+
+        $attendance = Attendance::create([
+            'pegawai_id' => $pegawai->id,
+            'date' => $request->date,
+            'check_in' => $request->check_in,
+            'check_out' => '-',
+            'status' => 'hadir',
+            'kantor_id' => $kantor->id,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+        ]);
+
+        return response()->json(['message' => 'Absensi berhasil', 'data' => $attendance]);
     }
 
-    private function haversineGreatCircleDistance($lat1, $lon1, $lat2, $lon2)
+    public function checkOut(Request $request)
     {
-        $earthRadius = 6371000; // Radius bumi dalam meter
+        $user = Auth::user();
+        $pegawai = $user->pegawai;
+        if (!$pegawai) {
+            return response()->json(['message' => 'User tidak memiliki data pegawai'], 403);
+        }
 
-        $lat1 = deg2rad($lat1);
-        $lon1 = deg2rad($lon1);
-        $lat2 = deg2rad($lat2);
-        $lon2 = deg2rad($lon2);
+        $attendance = Attendance::where('pegawai_id', $pegawai->id)
+            ->where('date', $request->date)
+            ->first();
 
-        $latDelta = $lat2 - $lat1;
-        $lonDelta = $lon2 - $lon1;
+        if (!$attendance) {
+            return response()->json(['message' => 'Anda belum melakukan check-in hari ini'], 403);
+        }
 
-        $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) + cos($lat1) * cos($lat2) * pow(sin($lonDelta / 2), 2)));
+        if ($attendance->check_out !== "-") {
+            return response()->json(['message' => 'Anda sudah melakukan check-out'], 403);
+        }
 
-        return $earthRadius * $angle;
+        $attendance->update([
+            'check_out' => $request->check_out,
+        ]);
+
+        return response()->json(['message' => 'Check-out berhasil', 'data' => $attendance]);
+    }
+
+    private function haversineDistance($lat1, $lon1, $lat2, $lon2)
+    {
+        $earthRadius = 6371000; // Meter
+        $latFrom = deg2rad($lat1);
+        $lonFrom = deg2rad($lon1);
+        $latTo = deg2rad($lat2);
+        $lonTo = deg2rad($lon2);
+
+        $latDelta = $latTo - $latFrom;
+        $lonDelta = $lonTo - $lonFrom;
+
+        $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) + cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
+        return $angle * $earthRadius;
     }
 }
