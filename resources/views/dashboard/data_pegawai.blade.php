@@ -395,7 +395,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="">
-                        <div class="row g-3 mt-3">
+                        <div class="row g-3">
                             <div class="col-md-12">
                                 <label for="name" class="form-label">Nama Lengkap</label>
                                 <input type="text" class="form-control" id="name" name="name"
@@ -469,7 +469,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="formTambahKegiatan">
-                        <div class="row g-3 mt-3">
+                        <div class="row g-3">
                             <div class="col-md-12">
                                 <label for="idPegawai" class="form-label">Nama Lengkap</label>
                                 <p id="idPegawai" class="help is-hidden"></p>

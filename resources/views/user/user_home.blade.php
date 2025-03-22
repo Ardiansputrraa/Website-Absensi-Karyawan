@@ -39,7 +39,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="formTambahKegiatan">
-                        <div class="row g-3 mt-3">
+                        <div class="row g-3">
                             <div class="col-md-12">
                                 <label for="username" class="form-label">Username</label>
                                 <input type="text" class="form-control" id="username" name="username"

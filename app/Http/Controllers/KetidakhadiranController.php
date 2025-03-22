@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\LeaveRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Auth;
 
 class KetidakhadiranController extends Controller
 {
@@ -14,6 +14,37 @@ class KetidakhadiranController extends Controller
     {
         $leave_request = LeaveRequest::all();
         return view('user.user_ketidakhadiran', compact('leave_request'));
+    }
+
+    public function tambahKetidakHadiran(Request $request)
+    {
+        $user = Auth::user();
+        $pegawai = $user->pegawai;
+
+        if (!$pegawai) {
+            return response()->json(['message' => 'User tidak memiliki data pegawai'], 403);
+        }
+
+        $file = $request->file('file');
+        $fileName = $file->getClientOriginalName();
+        $filePath = 'storage/images/ketidakhadiran/' . $fileName;
+        if (Storage::exists($filePath)) {
+            Storage::delete($filePath);
+        }
+        $file->move(public_path('storage/images/ketidakhadiran'), $fileName);
+
+        $leave_request = LeaveRequest::create([
+            'pegawai_id' => $pegawai->id,
+            'name' => $pegawai->name,
+            'leave_type' => $request->leave_type,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'file' => $filePath,
+            'reason' => $request->reason,
+        ]);
+
+
+        return response()->json(['success' => ' Ketidakhadiran berhasil ditambahkan.'], 200);
     }
 
     public function detailKetidakHadiran($id)
@@ -26,8 +57,9 @@ class KetidakhadiranController extends Controller
         }
     }
 
-    public function editKetidakHadiran(Request $request)
+    public function editKetidakhadiran(Request $request)
     {
+
         $id = $request->id;
 
         $leave_request = LeaveRequest::find($id);
@@ -39,7 +71,7 @@ class KetidakhadiranController extends Controller
             if (Storage::exists($filePath)) {
                 Storage::delete($filePath);
             }
-            $file->move(public_path('storage/images/sumber-daya'), $fileName);
+            $file->move(public_path('storage/images/ketidakhadiran'), $fileName);
 
             $leave_request->update([
                 'leave_type' => $request->leave_type,
@@ -60,35 +92,6 @@ class KetidakhadiranController extends Controller
         return response()->json(['success' => 'Ketidakhadiran berhasil diubah.'], 200);
     }
 
-    public function tambahKetidakHadiran(Request $request)
-    {
-        $user = Auth::user();
-        $pegawai = $user->pegawai;
-
-        if (!$pegawai) {
-            return response()->json(['message' => 'User tidak memiliki data pegawai'], 403);
-        }
-
-        $file = $request->file('file');
-        $fileName = $file->getClientOriginalName();
-        $filePath = 'storage/images/sumber-daya/' . $fileName;
-        if (Storage::exists($filePath)) {
-            Storage::delete($filePath);
-        }
-        $file->move(public_path('storage/images/sumber-daya'), $fileName);
-
-        $leave_request = LeaveRequest::create([
-            'pegawai_id' => $pegawai->id,
-            'leave_type' => $request->leave_type,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'file' => $filePath,
-            'reason' => $request->reason,
-        ]);
-
-
-        return response()->json(['success' => ' Ketidakhadiran berhasil ditambahkan.'], 200);
-    }
 
     function deleteKetidakHadiran($id)
     {

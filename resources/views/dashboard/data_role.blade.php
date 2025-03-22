@@ -205,7 +205,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="formTambahKegiatan">
-                        <div class="row g-3 mt-3">
+                        <div class="row g-3">
                             <div class="col-md-12">
                                 <label for="narasumber" class="form-label">Role</label>
                                 <input type="text" class="form-control" id="role" name="role"
@@ -236,7 +236,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="formTambahKegiatan">
-                        <div class="row g-3 mt-3">
+                        <div class="row g-3">
                             <div class="col-md-12">
                                 <label for="narasumber" class="form-label">Role</label>
                                 <p id="idRole" class="help is-hidden"></p>

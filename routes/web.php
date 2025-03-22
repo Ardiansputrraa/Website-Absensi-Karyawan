@@ -69,7 +69,7 @@ Route::controller(KetidakhadiranController::class)->group(function () {
     Route::get('user-ketidakhadiran', 'viewKetidakHadiran')->name('user-ketidakhadiran');
     Route::post('tambah-ketidakhadiran', 'tambahKetidakHadiran')->name('tambah.ketidakhadiran');
     Route::get('detail-ketidakhadiran/{ketidakhadiran_id}', 'detailKetidakHadiran')->name('detail.ketidakhadiran');
-    Route::post('edit-ketidakhadiran', 'editKetidakHadiran')->name('edit.ketidakhadiran');
+    Route::post('edit-ketidakhadiran', 'editKetidakhadiran')->name('edit.ketidakhadiran');
     Route::get('delete-ketidakhadiran/{ketidakhadiran_id}', 'deleteKetidakHadiran')->name('delete.ketidakhadiran');
     Route::get('download-ketidakhadiran/{ketidakhadiran_id}', 'downloadKetidakHadiran')->name('download.ketidakhadiran');
 });

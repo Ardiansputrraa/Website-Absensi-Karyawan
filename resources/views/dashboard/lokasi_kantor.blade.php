@@ -384,7 +384,7 @@
                     <div id="map"></div>
 
                     <form>
-                        <div class="row g-3 mt-2">
+                        <div class="row g-3">
 
                             <div class="col-md-12">
                                 <label for="nama_kantor" class="form-label">Nama Kantor</label>
@@ -451,7 +451,7 @@
                     <div id="editMap"></div>
 
                     <form>
-                        <div class="row g-3 mt-2">
+                        <div class="row g-3">
 
                             <div class="col-md-12">
                                 <label for="editNamaKantor" class="form-label">Nama Kantor</label>
