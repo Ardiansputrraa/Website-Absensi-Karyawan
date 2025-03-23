@@ -243,7 +243,7 @@
         console.log(idKetidakhadiran);
         console.log(keterangan);
 
-        formInputEdit.append('id', 1);
+        formInputEdit.append('id', idKetidakhadiran);
         formInputEdit.append('_token', "{{ csrf_token() }}");
         formInputEdit.append('leave_type', keterangan);
         formInputEdit.append('start_date', tanggalMulai);
@@ -448,7 +448,8 @@
                                 <div class="row g-3">
                                     <div class="col-md-12">
                                         <label for="name" class="form-label">Nama Lengkap</label>
-                                        <p id="idKetidakhadiran" class="help">1</p>
+                                        <input type="text" class="form-control" type="hidden" id="idKetidakhadiran" name="idKetidakhadiran"
+                                            placeholder="idKetidakhadiran">
                                         <input type="text" class="form-control" id="editName" name="editName"
                                             placeholder="Masukkan nama lengkap"
                                             value="{{ Auth::user()->pegawai->name }}" disabled readonly>
