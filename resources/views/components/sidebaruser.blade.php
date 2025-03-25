@@ -14,7 +14,7 @@
                 </ul>
             </li>
             <li><a href="/user-ketidakhadiran">Ketidakhadiran</a></li>
-            <li><a href="/user-laporan-harian">Laporan Harian</a></li>
+            <li><a href="/user-logbook">Laporan Harian</a></li>
         </ul>
     </nav>
 </aside>

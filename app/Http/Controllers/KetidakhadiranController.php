@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LeaveRequest;
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -12,8 +13,49 @@ class KetidakhadiranController extends Controller
 {
     public function viewKetidakHadiran()
     {
-        $leave_request = LeaveRequest::all();
+        $user = Auth::user();
+        $pegawai_id = $user->pegawai->id;
+        $leave_request = LeaveRequest::where('pegawai_id', $pegawai_id)->get();
         return view('user.user_ketidakhadiran', compact('leave_request'));
+    }
+
+    public function viewKAdminKetidakHadiran()
+    {
+        $leave_request = LeaveRequest::all();
+        $pegawais = Pegawai::all();
+        return view('dashboard.ketidakhadiran', compact('leave_request', 'pegawais'));
+    }
+
+    public function search(Request $request)
+    {
+        $pegawai_id = $request->input('pegawai_id');
+        $start_date = $request->input('start_date');
+
+        $query = LeaveRequest::query();
+
+        if (!empty($pegawai_id)) {
+            $query->where('pegawai_id', $pegawai_id);
+        }
+
+        if (!empty($start_date)) {
+            $query->where('start_date', $start_date);
+        }
+
+        $leaveRequests = $query->get();
+
+        return response()->json($leaveRequests);
+    }
+
+    public function setujuKetidakhadiran(Request $request)
+    {
+        $id = $request->id;
+        $leave_request = LeaveRequest::find($id);
+          
+        $leave_request->update([
+            'status' => $request->status,
+        ]);
+
+        return response()->json(['success' => 'Ketidakhadiran berhasil diterima.'], 200);
     }
 
     public function tambahKetidakHadiran(Request $request)
@@ -57,7 +99,7 @@ class KetidakhadiranController extends Controller
         }
     }
 
-    public function editKetidakhadiran(Request $request)
+    public function editKetidakHadiran(Request $request)
     {
 
         $id = $request->id;

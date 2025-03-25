@@ -166,7 +166,7 @@
     }
 
     function editKetidakhadiran() {
-        let idKetidakhadiran = $('idKetidakhadiran').val();
+        let idKetidakhadiran = $('#idKetidakhadiran').val();
         let keterangan = $('#editKeterangan').val();
         let tanggalMulai = $('#editTanggalMulai').val();
         let tanggalSelesai = $('#editTanggalSelesai').val();
@@ -175,61 +175,61 @@
 
 
         if (keterangan === "") {
-            $("#helpKeterangan")
+            $("#helpEditKeterangan")
                 .text("Silahkan pilih keterangan!")
                 .removeClass("is-safe")
                 .addClass("is-danger");
-            $("#keterangan").focus();
+            $("#editKeterangan").focus();
             return;
         }
 
         if (keterangan !== "") {
-            $("#helpKeterangan")
+            $("#helpEditKeterangan")
                 .text("")
                 .removeClass("is-danger");
         }
 
         if (tanggalMulai === "") {
-            $("#helpTanggalMulai")
+            $("#helpEditTanggalMulai")
                 .text("Silahkan pilih tanggal mulai!")
                 .removeClass("is-safe")
                 .addClass("is-danger");
-            $("#tanggalMulai").focus();
+            $("#editTanggalMulai").focus();
             return;
         }
 
         if (tanggalMulai !== "") {
-            $("#helpTanggalMulai")
+            $("#helpEditTanggalMulai")
                 .text("")
                 .removeClass("is-danger");
         }
 
         if (tanggalSelesai === "") {
-            $("#helpTanggalSelesai")
+            $("#helpEditTanggalSelesai")
                 .text("Silahkan pilih tanggal selesai!")
                 .removeClass("is-safe")
                 .addClass("is-danger");
-            $("#tanggalSelesai").focus();
+            $("#editTanggalSelesai").focus();
             return;
         }
 
         if (tanggalSelesai !== "") {
-            $("#helpTanggalSelesai")
+            $("#helpEditTanggalSelesai")
                 .text("")
                 .removeClass("is-danger");
         }
 
         if (deskripsi === "") {
-            $("#helpDeskripsi")
+            $("#helpEditDeskripsi")
                 .text("Silahkan masukan deskripsi!")
                 .removeClass("is-safe")
                 .addClass("is-danger");
-            $("#deskripsi").focus();
+            $("#editDeskripsi").focus();
             return;
         }
 
         if (deskripsi !== "") {
-            $("#helpDeskripsi")
+            $("#helpEditDeskripsi")
                 .text("")
                 .removeClass("is-danger");
         }
@@ -239,9 +239,6 @@
         if (file) {
             formInputEdit.append('file', file);
         }
-
-        console.log(idKetidakhadiran);
-        console.log(keterangan);
 
         formInputEdit.append('id', idKetidakhadiran);
         formInputEdit.append('_token', "{{ csrf_token() }}");
@@ -448,8 +445,7 @@
                                 <div class="row g-3">
                                     <div class="col-md-12">
                                         <label for="name" class="form-label">Nama Lengkap</label>
-                                        <input type="text" class="form-control" type="hidden" id="idKetidakhadiran" name="idKetidakhadiran"
-                                            placeholder="idKetidakhadiran">
+                                        <p id="idKetidakhadiran" class="help is-hidden"></p>
                                         <input type="text" class="form-control" id="editName" name="editName"
                                             placeholder="Masukkan nama lengkap"
                                             value="{{ Auth::user()->pegawai->name }}" disabled readonly>

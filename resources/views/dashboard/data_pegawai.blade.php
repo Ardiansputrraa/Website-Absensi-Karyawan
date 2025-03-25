@@ -362,6 +362,7 @@
                     </thead>
                     <tbody>
                         @foreach ($pegawais as $pegawai)
+                        <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $pegawai->name }}</td>
                             <td>{{ $pegawai->position }}</td>
@@ -377,6 +378,7 @@
                                     <img src="{{ asset('image/delete.png') }}" alt="Delete">
                                 </button>
                             </td>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>

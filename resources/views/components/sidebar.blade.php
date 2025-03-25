@@ -23,7 +23,7 @@
                 </ul>
             </li>
             <li><a href="/ketidakhadiran">Ketidakhadiran</a></li>
-            <li><a href="/laporan-harian">Laporan Harian</a></li>
+            <li><a href="/laporan-logbook">Laporan Harian</a></li>
         </ul>
     </nav>
 </aside>

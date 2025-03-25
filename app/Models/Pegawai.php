@@ -19,6 +19,10 @@ class Pegawai extends Model {
         return $this->hasMany(LeaveRequest::class);
     }
 
+    public function logbook() {
+        return $this->hasMany(Logbook::class);
+    }
+
     public function attendance() {
         return $this->hasMany(Attendance::class);
     }

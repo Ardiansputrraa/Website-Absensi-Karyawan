@@ -13,7 +13,7 @@ class Attendance extends Model {
     protected $fillable = ['pegawai_id', 'date', 'check_in', 'check_out', 'status', 'kantor_id', 'latitude', 'longitude'];
 
     public function pegawai(): BelongsTo {
-        return $this->belongsTo(Pegawai::class);
+        return $this->belongsTo(Pegawai::class, 'pegawai_id');
     }
 
     public function lokasiKantor(): BelongsTo {
