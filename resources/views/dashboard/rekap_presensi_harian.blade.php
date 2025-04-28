@@ -32,18 +32,7 @@
                 let rows = '';
 
                 if (response.length > 0) {
-                    console.log(response)
                     $.each(response, function(index, item) {
-                        let jamMasukKantor = new Date('1970-01-01T08:00:00').getTime();
-                        let checkInTime = new Date(`1970-01-01T${item.check_in}`).getTime();
-                        let checkOutTime = new Date(`1970-01-01T${item.check_out}`).getTime();
-
-                        let keterlambatan = Math.max(0, Math.round((checkInTime - jamMasukKantor) / (1000 * 60)));
-                        let statusHadir = keterlambatan > 0 ? `Terlambat ${keterlambatan} menit` : "Tepat Waktu";
-
-                        let durasiKerja = checkOutTime > checkInTime ? new Date(checkOutTime - checkInTime).toISOString().substr(11, 8) : "00:00:00";
-
-                        console.log(`Keterlambatan: ${keterlambatan} menit, Durasi Kerja: ${durasiKerja}`); // Debugging
                         rows += `
                             <tr>
                                 <td>${index + 1}</td>
@@ -52,8 +41,6 @@
                                 <td>${item.date}</td>
                                 <td>${item.check_in}</td>
                                 <td>${item.check_out}</td>
-                                <td>${durasiKerja}</td>
-                            <td>${statusHadir}</td>
                             </tr>
                         `;
                     });
@@ -104,23 +91,10 @@
                             <th>Tanggal</th>
                             <th>Jam Masuk</th>
                             <th>Jam Keluar</th>
-                            <th>Total Jam</th>
-                            <th>Terlambat</th>
                         </tr>
                     </thead>
                     <tbody id="results">
                         @foreach ($absensi as $item)
-                        @php
-                        $jam_masuk_kantor = strtotime('08:00:00');
-                        $check_in_time = strtotime($item->check_in);
-                        $check_out_time = strtotime($item->check_out);
-
-                        $keterlambatan = max(0, round(($check_in_time - $jam_masuk_kantor) / 60));
-
-                        $status_hadir = $keterlambatan > 0 ? "Terlambat $keterlambatan menit" : "Tepat Waktu";
-
-                        $durasi_kerja = gmdate("H:i:s", max(0, $check_out_time - $check_in_time));
-                        @endphp
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->pegawai->name }}</td>
@@ -128,13 +102,12 @@
                             <td>{{ $item->date }}</td>
                             <td>{{ $item->check_in }}</td>
                             <td>{{ $item->check_out }}</td>
-                            <td>{{ $durasi_kerja }}</td>
-                            <td>{{ $status_hadir }}</td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
+        </main>
 </body>
 
 </html>

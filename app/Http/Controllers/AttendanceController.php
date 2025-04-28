@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Auth;
 class AttendanceController extends Controller
 {
 
+    public function viewKehadiran() {
+        $today = Carbon::now()->translatedFormat('l, d F Y'); 
+        $absensi = Attendance::where('date', $today)->get();
+        return view('dashboard.kehadiran_pegawai', compact('absensi', 'today'));
+    }
+    
     public function viewAttendance() {
         $user = Auth::user();
         $kantor = LokasiKantor::first();

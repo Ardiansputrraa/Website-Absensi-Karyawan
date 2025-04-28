@@ -1,4 +1,23 @@
 <x-header></x-header>
+
+<script>
+    function dateTimeToday() {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const today = now.toLocaleDateString('id-ID', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            document.getElementById('date-today').innerText = today;
+            return today;
+    }
+    setInterval(() => {
+        dateTimeToday();
+        }, 10);
+    </script>
 <body>
     <div class="container">
         <!-- Sidebar -->
@@ -11,7 +30,7 @@
         <main class="main-content">
             <div class="card">
                 <div class="card-header">
-                    <h2>Total Pegawai</h2>
+                    <h2>Kehadiran Pegawai Pegawai</h2>
                     <div class="dropdown">
                         <select>
                             <option>Total Hadir</option>
@@ -20,40 +39,29 @@
                         </select>
                     </div>
                 </div>
-                <p>3 Orang</p>
-                
+                <h5 id="date-today">>{{ $today }}</h5>
                 <table>
                     <thead>
                         <tr>
                             <th>No</th>
                             <th>Nama</th>
                             <th>Jabatan</th>
-                            <th>Role</th>
-                            <th>Status</th>
+                            <th>Tanggal</th>
+                            <th>Jam Masuk</th>
+                            <th>Jam Keluar</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="results">
+                        @foreach ($absensi as $item)
                         <tr>
-                            <td>1</td>
-                            <td>Dikco Agung Prasetyo</td>
-                            <td>Jaringan</td>
-                            <td>Magang</td>
-                            <td>Hadir</td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->pegawai->name }}</td>
+                            <td>{{ $item->pegawai->position }}</td>
+                            <td>{{ $item->date }}</td>
+                            <td>{{ $item->check_in }}</td>
+                            <td>{{ $item->check_out }}</td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Anugrah Lan Pambudi</td>
-                            <td>Web Developer</td>
-                            <td>Magang</td>
-                            <td>Tidak Hadir</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Ardian Saputra</td>
-                            <td>Android Developer</td>
-                            <td>Pegawai</td>
-                            <td>Izin</td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

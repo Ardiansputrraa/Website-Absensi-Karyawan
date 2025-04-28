@@ -15,17 +15,11 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/kehadiran-pegawai', function () {
-    return view('dashboard.kehadiran_pegawai');
-});
-
-Route::get('/data-pegawai', function () {
-    return view('dashboard.data_pegawai');
-});
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('login', 'viewLogin')->name('login');
     Route::post('login-check', 'loginCheck')->name('login.check');
+    Route::post('logout', 'logout')->name('logout');
 });
 
 Route::controller(DataJabatanController::class)->group(function () {
@@ -65,6 +59,8 @@ Route::controller(AttendanceController::class)->group(function () {
     Route::get('user-home', 'viewAttendance')->name('user.home');
     Route::post('absen-masuk', 'checkIn')->name('absen.masuk');
     Route::post('absen-keluar', 'checkOut')->name('absen.keluar');
+
+    Route::get('kehadiran-pegawai', 'viewKehadiran')->name('kehadiran.pegawai');
 });
 
 Route::controller(KetidakhadiranController::class)->group(function () {

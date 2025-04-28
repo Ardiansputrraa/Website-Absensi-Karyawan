@@ -110,6 +110,10 @@ body {
     align-items: center;
 }
 
+.content-wrapper{
+    margin-top: 100px;
+}
+
 .illustration img {
     width: 400px;
 }
